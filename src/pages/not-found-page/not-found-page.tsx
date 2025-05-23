@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
 
 function NotFoundPage() {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities: 404 error</title>
+      </Helmet>
       <Header />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Page is not found</h1>
