@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import Header from '../../components/header/header';
+import { AppRoute } from '../../const';
 
 function NotFoundPage() {
   return (
@@ -11,7 +13,7 @@ function NotFoundPage() {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">Page is not found</b>
-                <button className='button form__submit'>Do you want to go back?</button>
+                <Link className='button form__submit' to={AppRoute.Main}>Do you want to go back? </Link>
               </div>
             </section>
             <section className="cities__right-section">
