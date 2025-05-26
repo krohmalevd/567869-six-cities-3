@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Header from '../../components/header/header';
 import { AppRoute } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
@@ -9,7 +8,6 @@ function NotFoundPage() {
       <Helmet>
         <title>6 cities: 404 error</title>
       </Helmet>
-      <Header />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Page is not found</h1>
         <div className="cities">
@@ -17,7 +15,7 @@ function NotFoundPage() {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">Page is not found</b>
-                <Link className='button form__submit' to={AppRoute.Main}>Do you want to go back? </Link>
+                <Link className='button form__submit' to={AppRoute.Root}>Do you want to go back? </Link>
               </div>
             </section>
             <section className="cities__right-section">
@@ -26,7 +24,7 @@ function NotFoundPage() {
           </div>
         </div>
       </main>
-    </div >
+    </div>
   );
 }
 
