@@ -11,7 +11,7 @@ function PrivateRoute({ authorizationStatus, isReverse, children }: PrivateRoute
   return (
     authorizationStatus === (isReverse ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth) ?
       children :
-      <Navigate to = { isReverse? AppRoute.Root : AppRoute.Login } />
+      <Navigate to={isReverse ? AppRoute.Root : AppRoute.Login} />
   );
 }
 
