@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import MainPage from '../../pages/main-page';
@@ -8,6 +8,7 @@ import OfferPage from '../../pages/offer-page';
 import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
+import { getAuthorizationStatus } from '../../authorization-status';
 
 type AppProps = {
   placesCount: number;
@@ -30,7 +31,7 @@ function App({ placesCount }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <PrivateRoute authorizationStatus={getAuthorizationStatus()}>
                   <FavoritesPage />
                 </PrivateRoute>
               }
