@@ -26,7 +26,12 @@ function App({ placesCount }: AppProps): JSX.Element {
             />
             <Route
               path={AppRoute.Login}
-              element={<LoginPage />}
+              element={
+                <PrivateRoute authorizationStatus={getAuthorizationStatus()} isReverse>
+                  <LoginPage />
+                </PrivateRoute>
+
+              }
             />
             <Route
               path={AppRoute.Favorites}
