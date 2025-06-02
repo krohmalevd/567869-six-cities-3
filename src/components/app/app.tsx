@@ -12,7 +12,7 @@ import { getAuthorizationStatus } from '../../authorization-status';
 
 type AppProps = {
   placesCount: number;
-}
+};
 
 function App({ placesCount }: AppProps): JSX.Element {
   return (
@@ -20,17 +20,16 @@ function App({ placesCount }: AppProps): JSX.Element {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route
-              index
-              element={<MainPage placesCount={placesCount} />}
-            />
+            <Route index element={<MainPage placesCount={placesCount} />} />
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={getAuthorizationStatus()} isReverse>
+                <PrivateRoute
+                  authorizationStatus={getAuthorizationStatus()}
+                  isReverse
+                >
                   <LoginPage />
                 </PrivateRoute>
-
               }
             />
             <Route
@@ -41,15 +40,9 @@ function App({ placesCount }: AppProps): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route
-              path={AppRoute.Offer}
-              element={<OfferPage />}
-            />
+            <Route path={AppRoute.Offer} element={<OfferPage />} />
           </Route>
-          <Route
-            path='*'
-            element={<NotFoundPage />}
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
@@ -57,4 +50,3 @@ function App({ placesCount }: AppProps): JSX.Element {
 }
 
 export default App;
-

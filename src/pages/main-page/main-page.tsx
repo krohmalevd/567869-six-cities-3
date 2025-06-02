@@ -4,7 +4,7 @@ import Tabs from '../../components/tabs';
 
 type MainPageProps = {
   placesCount: number;
-}
+};
 
 function MainPage({ placesCount }: MainPageProps): JSX.Element {
   return (
@@ -14,8 +14,8 @@ function MainPage({ placesCount }: MainPageProps): JSX.Element {
       </Helmet>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        < Tabs />
-        < Cities placesCount={placesCount} />
+        <Tabs />
+        <Cities placesCount={placesCount} />
       </main>
     </>
   );

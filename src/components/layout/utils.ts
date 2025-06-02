@@ -14,5 +14,5 @@ export const getLayoutState = (pathname: AppRoute) => {
     shouldRenderFooter = true;
   }
 
-  return {rootClassName, shouldRenderUser, shouldRenderFooter};
+  return { rootClassName, shouldRenderUser, shouldRenderFooter };
 };

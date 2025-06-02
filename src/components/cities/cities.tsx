@@ -2,9 +2,9 @@ import PlaceCard from '../place-card';
 
 type CitiesProps = {
   placesCount: number;
-}
+};
 
-function Cities({placesCount}: CitiesProps): JSX.Element {
+function Cities({ placesCount }: CitiesProps): JSX.Element {
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -20,14 +20,27 @@ function Cities({placesCount}: CitiesProps): JSX.Element {
               </svg>
             </span>
             <ul className="places__options places__options--custom places__options--opened">
-              <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-              <li className="places__option" tabIndex={0}>Price: low to high</li>
-              <li className="places__option" tabIndex={0}>Price: high to low</li>
-              <li className="places__option" tabIndex={0}>Top rated first</li>
+              <li
+                className="places__option places__option--active"
+                tabIndex={0}
+              >
+                Popular
+              </li>
+              <li className="places__option" tabIndex={0}>
+                Price: low to high
+              </li>
+              <li className="places__option" tabIndex={0}>
+                Price: high to low
+              </li>
+              <li className="places__option" tabIndex={0}>
+                Top rated first
+              </li>
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {Array.from({ length: placesCount }, (_, i) => <PlaceCard key={i} />)}
+            {Array.from({ length: placesCount }, (_, i) => (
+              <PlaceCard key={i} />
+            ))}
           </div>
         </section>
         <div className="cities__right-section">
