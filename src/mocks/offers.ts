@@ -28,10 +28,10 @@ const mockOffers: Offers = [
     goods: ['Heating'],
     host: {
       name: 'Oliver Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/1.jpg',
       isPro: false,
     },
-    images: ['https://url-to-image/image.png'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
     maxAdults: 4,
   },
   {
@@ -60,10 +60,10 @@ const mockOffers: Offers = [
     goods: ['Wi-Fi', 'Kitchen', 'Washing Machine'],
     host: {
       name: 'Sophie Marceau',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/2.jpg',
       isPro: true,
     },
-    images: ['https://url-to-image/image.png'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
     maxAdults: 3,
   },
   {
@@ -86,16 +86,16 @@ const mockOffers: Offers = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 4,
+    rating: 3.5,
     description: 'Perfect for nature lovers, surrounded by forest.',
     bedrooms: 1,
-    goods: ['Dishwasher', 'Cabel TV'],
+    goods: ['Dishwasher', 'Cabel TV', 'Wi-Fi', 'Kitchen', 'Washing Machine', 'Towels'],
     host: {
       name: 'Hans Müller',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/3.jpg',
       isPro: false,
     },
-    images: ['https://url-to-image/image.png'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg'],
     maxAdults: 2,
   },
   {
@@ -124,10 +124,10 @@ const mockOffers: Offers = [
     goods: ['Fridge', 'Towels', 'Baby seat'],
     host: {
       name: 'Maria Garcia',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/4.jpg',
       isPro: true,
     },
-    images: ['https://url-to-image/image.png'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
     maxAdults: 6,
   },
 ];

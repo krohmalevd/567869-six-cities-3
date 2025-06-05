@@ -9,12 +9,14 @@ import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import { getAuthorizationStatus } from '../../authorization-status';
+import { Offers } from '../../types/offer';
 
 type AppProps = {
   placesCount: number;
+  offers: Offers;
 };
 
-function App({ placesCount }: AppProps): JSX.Element {
+function App({ placesCount, offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -40,7 +42,7 @@ function App({ placesCount }: AppProps): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path={AppRoute.Offer} element={<OfferPage />} />
+            <Route path={AppRoute.Offer} element={<OfferPage offers={offers}/>} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
