@@ -2,15 +2,17 @@ import { Helmet } from 'react-helmet-async';
 import { Offer, Offers } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
-import Reviews from '../../components/reviews';
 import Map from '../../components/map';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
+import Review from '../../components/review';
+import { Reviews } from '../../types/review';
 
 type OfferPageProps = {
   offers: Offers;
+  reviews: Reviews;
 };
 
-function OfferPage({ offers }: OfferPageProps): JSX.Element {
+function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
   const { id } = useParams();
   const currentOffer: Offer | undefined = offers.find(
     (offer: Offer) => offer.id === id
@@ -19,6 +21,8 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
   if (!currentOffer) {
     return <NotFoundPage />;
   }
+
+  const currentReviews = reviews.filter((review) => review.id === currentOffer.id);
 
   const {
     title,
@@ -141,7 +145,13 @@ function OfferPage({ offers }: OfferPageProps): JSX.Element {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              <Reviews />
+              <section className="offer__reviews reviews">
+                <h2 className="reviews__title">
+                  Reviews &middot;{' '}
+                  <span className="reviews__amount">{currentReviews.length}</span>
+                </h2>
+                <Review reviews={currentReviews} />
+              </section>
             </div>
           </div>
 
