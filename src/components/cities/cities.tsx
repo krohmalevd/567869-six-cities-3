@@ -1,11 +1,20 @@
-import { Offers } from '../../types/offer';
+import { useState } from 'react';
+import { Offer, Offers } from '../../types/offer';
 import PlaceCard from '../place-card';
+import { Nullable } from 'vitest';
 
 type CitiesProps = {
   offers: Offers;
 };
 
 function Cities({ offers }: CitiesProps): JSX.Element {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
+
+  const handleHover = (offer?: Offer) => {
+    setActiveOffer(offer || null);
+  };
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -40,7 +49,7 @@ function Cities({ offers }: CitiesProps): JSX.Element {
           </form>
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
-              <PlaceCard offer={offer} key={offer.id} />
+              <PlaceCard key={offer.id} offer={offer} handleHover={handleHover}/>
             ))}
           </div>
         </section>
