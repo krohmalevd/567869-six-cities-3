@@ -19,7 +19,7 @@ const mockOffers: Offers = [
       longitude: 4.673877537499948,
       zoom: 8,
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 1.25,
     description:
@@ -40,7 +40,7 @@ const mockOffers: Offers = [
     type: 'house',
     price: 200,
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.856613,
         longitude: 2.352222,
@@ -53,7 +53,7 @@ const mockOffers: Offers = [
       zoom: 10,
     },
     isFavorite: true,
-    isPremium: true,
+    isPremium: false,
     rating: 5,
     description: 'Stylish loft with a great view of the Eiffel Tower.',
     bedrooms: 2,
@@ -72,7 +72,7 @@ const mockOffers: Offers = [
     type: 'cabin',
     price: 90,
     city: {
-      name: 'Berlin',
+      name: 'Hamburg',
       location: {
         latitude: 52.520008,
         longitude: 13.404954,
@@ -84,7 +84,7 @@ const mockOffers: Offers = [
       longitude: 13.404954,
       zoom: 12,
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 3.5,
     description: 'Perfect for nature lovers, surrounded by forest.',
@@ -104,7 +104,7 @@ const mockOffers: Offers = [
     type: 'apartment',
     price: 350,
     city: {
-      name: 'Barcelona',
+      name: 'Paris',
       location: {
         latitude: 41.385063,
         longitude: 2.173404,
@@ -116,8 +116,8 @@ const mockOffers: Offers = [
       longitude: 2.173404,
       zoom: 14,
     },
-    isFavorite: true,
-    isPremium: true,
+    isFavorite: false,
+    isPremium: false,
     rating: 5,
     description: 'Stunning penthouse with a private pool and panoramic views.',
     bedrooms: 4,

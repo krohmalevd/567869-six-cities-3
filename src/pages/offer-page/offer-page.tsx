@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
 import Reviews from '../../components/reviews';
 import Map from '../../components/map';
-import { ratingWidthStyle } from '../../utils/tools';
+import { capitalize, ratingWidthStyle } from '../../utils/tools';
 
 type OfferPageProps = {
   offers: Offers;
 };
 
-function OfferPage({ offers }: OfferPageProps) {
+function OfferPage({ offers }: OfferPageProps): JSX.Element {
   const { id } = useParams();
   const currentOffer: Offer | undefined = offers.find(
     (offer: Offer) => offer.id === id
@@ -24,6 +24,7 @@ function OfferPage({ offers }: OfferPageProps) {
     title,
     images,
     isPremium,
+    isFavorite,
     rating,
     type,
     maxAdults,
@@ -33,6 +34,10 @@ function OfferPage({ offers }: OfferPageProps) {
     host,
     description,
   } = currentOffer;
+
+  const isFavoriteClassName = isFavorite
+    ? 'offer__bookmark-button offer__bookmark-button--active button'
+    : 'offer__bookmark-button button';
 
   return (
     <>
@@ -67,7 +72,7 @@ function OfferPage({ offers }: OfferPageProps) {
               ) : null}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button className={isFavoriteClassName} type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -85,7 +90,7 @@ function OfferPage({ offers }: OfferPageProps) {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {capitalize(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -112,7 +117,13 @@ function OfferPage({ offers }: OfferPageProps) {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div
+                    className={
+                      host.isPro
+                        ? 'offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper'
+                        : 'offer__avatar-wrapper user__avatar-wrapper'
+                    }
+                  >
                     <img
                       className="offer__avatar user__avatar"
                       src={host.avatarUrl}
@@ -130,11 +141,11 @@ function OfferPage({ offers }: OfferPageProps) {
                   <p className="offer__text">{description}</p>
                 </div>
               </div>
-              {<Reviews />}
+              <Reviews />
             </div>
           </div>
 
-          {<Map />}
+          <Map />
         </section>
         <div className="container">
           <section className="near-places places">

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
-import { ratingWidthStyle } from '../../utils/tools';
+import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
@@ -17,10 +17,19 @@ function PlaceCard({ offer, handleHover }: PlaceCardProps): JSX.Element {
     handleHover();
   };
 
-  const { id, isPremium, images, title, price, rating, type } = offer;
+  const { id, isPremium, isFavorite, images, title, price, rating, type } =
+    offer;
+  const isFavoriteClassName = isFavorite
+    ? 'place-card__bookmark-button place-card__bookmark-button--active button'
+    : 'place-card__bookmark-button button';
+
   return (
     <Link to={`${AppRoute.Offer}/${id}`}>
-      <article className="cities__card place-card" onMouseEnter={handleMouseOn} onMouseLeave={handleMouseOff}>
+      <article
+        className="cities__card place-card"
+        onMouseEnter={handleMouseOn}
+        onMouseLeave={handleMouseOff}
+      >
         {isPremium && (
           <div className="place-card__mark">
             <span>Premium</span>
@@ -43,7 +52,7 @@ function PlaceCard({ offer, handleHover }: PlaceCardProps): JSX.Element {
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button
-              className="place-card__bookmark-button button"
+              className={isFavoriteClassName}
               type="button"
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -59,7 +68,7 @@ function PlaceCard({ offer, handleHover }: PlaceCardProps): JSX.Element {
             </div>
           </div>
           <h2 className="place-card__name">{title}</h2>
-          <p className="place-card__type">{type}</p>
+          <p className="place-card__type">{capitalize(type)}</p>
         </div>
       </article>
     </Link>
