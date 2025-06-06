@@ -1,10 +1,11 @@
+import { Offers } from '../../types/offer';
 import PlaceCard from '../place-card';
 
 type CitiesProps = {
-  placesCount: number;
+  offers: Offers;
 };
 
-function Cities({ placesCount }: CitiesProps): JSX.Element {
+function Cities({ offers }: CitiesProps): JSX.Element {
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -38,8 +39,8 @@ function Cities({ placesCount }: CitiesProps): JSX.Element {
             </ul>
           </form>
           <div className="cities__places-list places__list tabs__content">
-            {Array.from({ length: placesCount }, (_, i) => (
-              <PlaceCard key={i} />
+            {offers.map((offer) => (
+              <PlaceCard offer={offer} key={offer.id} />
             ))}
           </div>
         </section>

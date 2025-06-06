@@ -21,7 +21,7 @@ const mockOffers: Offers = [
     },
     isFavorite: false,
     isPremium: false,
-    rating: 4,
+    rating: 1.25,
     description:
       'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -31,7 +31,7 @@ const mockOffers: Offers = [
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/1.jpg',
       isPro: false,
     },
-    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/6.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
     maxAdults: 4,
   },
   {
@@ -63,7 +63,7 @@ const mockOffers: Offers = [
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/2.jpg',
       isPro: true,
     },
-    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/8.jpg', 'https://15.design.htmlacademy.pro/static/hotel/2.jpg', 'https://15.design.htmlacademy.pro/static/hotel/3.jpg'],
     maxAdults: 3,
   },
   {
@@ -95,7 +95,7 @@ const mockOffers: Offers = [
       avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/3.jpg',
       isPro: false,
     },
-    images: ['https://15.design.htmlacademy.pro/static/hotel/1.jpg'],
+    images: ['https://15.design.htmlacademy.pro/static/hotel/10.jpg'],
     maxAdults: 2,
   },
   {

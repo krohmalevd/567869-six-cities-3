@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
 import Reviews from '../../components/reviews';
 import Map from '../../components/map';
+import { ratingWidthStyle } from '../../utils/tools';
 
 type OfferPageProps = {
   offers: Offers;
@@ -32,7 +33,6 @@ function OfferPage({ offers }: OfferPageProps) {
     host,
     description,
   } = currentOffer;
-  const ratingWidthStyle = `${rating * (100 / 5)}%`;
 
   return (
     <>
@@ -76,7 +76,7 @@ function OfferPage({ offers }: OfferPageProps) {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: ratingWidthStyle }}></span>
+                  <span style={{ width: ratingWidthStyle(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">

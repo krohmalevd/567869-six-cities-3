@@ -12,17 +12,16 @@ import { getAuthorizationStatus } from '../../authorization-status';
 import { Offers } from '../../types/offer';
 
 type AppProps = {
-  placesCount: number;
   offers: Offers;
 };
 
-function App({ placesCount, offers }: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<MainPage placesCount={placesCount} />} />
+            <Route index element={<MainPage offers={offers} />} />
             <Route
               path={AppRoute.Login}
               element={
@@ -42,7 +41,7 @@ function App({ placesCount, offers }: AppProps): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path={AppRoute.Offer} element={<OfferPage offers={offers}/>} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<OfferPage offers={offers}/>} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
