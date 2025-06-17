@@ -9,47 +9,48 @@ import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import { getAuthorizationStatus } from '../../authorization-status';
+import { Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
 
 type AppProps = {
-  placesCount: number;
-}
+  offers: Offers;
+  reviews: Reviews;
+};
 
-function App({ placesCount }: AppProps): JSX.Element {
+function App({ offers, reviews }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route
-              index
-              element={<MainPage placesCount={placesCount} />}
-            />
+            <Route index element={<MainPage offers={offers} />} />
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={getAuthorizationStatus()} isReverse>
+                <PrivateRoute
+                  authorizationStatus={getAuthorizationStatus()}
+                  isReverse
+                >
                   <LoginPage />
                 </PrivateRoute>
-
               }
             />
             <Route
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus={getAuthorizationStatus()}>
-                  <FavoritesPage />
+                  <FavoritesPage
+                    offers={offers.filter((offer) => offer.isFavorite === true)}
+                  />
                 </PrivateRoute>
               }
             />
             <Route
-              path={AppRoute.Offer}
-              element={<OfferPage />}
+              path={`${AppRoute.Offer}/:id`}
+              element={<OfferPage offers={offers} reviews={reviews} />}
             />
           </Route>
-          <Route
-            path='*'
-            element={<NotFoundPage />}
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
@@ -57,4 +58,3 @@ function App({ placesCount }: AppProps): JSX.Element {
 }
 
 export default App;
-

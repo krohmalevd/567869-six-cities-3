@@ -15,12 +15,12 @@ function NotFoundPage() {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">Page is not found</b>
-                <Link className='button form__submit' to={AppRoute.Root}>Do you want to go back? </Link>
+                <Link className="button form__submit" to={AppRoute.Root}>
+                  Do you want to go back?{' '}
+                </Link>
               </div>
             </section>
-            <section className="cities__right-section">
-
-            </section>
+            <section className="cities__right-section"></section>
           </div>
         </div>
       </main>
