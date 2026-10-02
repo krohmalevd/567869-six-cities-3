@@ -13,18 +13,18 @@ import { City, Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 
 type AppProps = {
-  city: City;
+  cities: City[];
   offers: Offers;
   reviews: Reviews;
 };
 
-function App({ city, offers, reviews }: AppProps): JSX.Element {
+function App({ cities, offers, reviews }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<MainPage city={city} offers={offers} />} />
+            <Route index element={<MainPage cities={cities} offers={offers} />} />
             <Route
               path={AppRoute.Login}
               element={
