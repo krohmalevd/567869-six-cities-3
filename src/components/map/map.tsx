@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { City, Offers } from '../../types/offer';
+import { City, Offer, Offers } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City;
   offers: Offers;
   className?: string;
+  selectedOffer: Offer | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -16,7 +17,13 @@ const defaultCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-function Map({ city, offers, className = 'cities__map map' }: MapProps): JSX.Element {
+const currentCustomIcon = new Icon({
+  iconUrl: '/img/pin-active.svg',
+  iconSize: [27, 39],
+  iconAnchor: [13.5, 39],
+});
+
+function Map({ city, offers, className = 'cities__map map', selectedOffer }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
   const map = useMap(mapRef, city);
 
@@ -30,7 +37,11 @@ function Map({ city, offers, className = 'cities__map map' }: MapProps): JSX.Ele
         });
 
         offerMarker
-          .setIcon(defaultCustomIcon)
+          .setIcon(
+            selectedOffer !== null && offer.id === selectedOffer.id
+              ? currentCustomIcon
+              : defaultCustomIcon
+          )
           .addTo(markerLayer);
 
         return () => {
@@ -38,7 +49,7 @@ function Map({ city, offers, className = 'cities__map map' }: MapProps): JSX.Ele
         };
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOffer]);
 
   return (
     <section className={className} ref={mapRef} />
