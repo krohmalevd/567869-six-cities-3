@@ -1,23 +1,17 @@
 import { Offers } from '../types/offer';
+import mockCity from './city';
 
 const mockOffers: Offers = [
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
-    title: 'Beautiful & luxurious studio at great location',
+    title: 'Bobo',
     type: 'apartment',
     price: 120,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
+    city: mockCity,
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 12,
     },
     isFavorite: true,
     isPremium: false,
@@ -39,18 +33,11 @@ const mockOffers: Offers = [
     title: 'Modern loft in the city center',
     type: 'house',
     price: 200,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 48.856613,
-        longitude: 2.352222,
-        zoom: 10,
-      },
-    },
+    city: mockCity,
     location: {
-      latitude: 48.856613,
-      longitude: 2.352222,
-      zoom: 10,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 12,
     },
     isFavorite: true,
     isPremium: false,
@@ -71,17 +58,10 @@ const mockOffers: Offers = [
     title: 'Cozy cabin in the woods',
     type: 'cabin',
     price: 90,
-    city: {
-      name: 'Hamburg',
-      location: {
-        latitude: 52.520008,
-        longitude: 13.404954,
-        zoom: 12,
-      },
-    },
+    city: mockCity,
     location: {
-      latitude: 52.520008,
-      longitude: 13.404954,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 12,
     },
     isFavorite: true,
@@ -103,18 +83,11 @@ const mockOffers: Offers = [
     title: 'Luxury penthouse with sea view',
     type: 'apartment',
     price: 350,
-    city: {
-      name: 'Paris',
-      location: {
-        latitude: 41.385063,
-        longitude: 2.173404,
-        zoom: 14,
-      },
-    },
+    city: mockCity,
     location: {
-      latitude: 41.385063,
-      longitude: 2.173404,
-      zoom: 14,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 12,
     },
     isFavorite: false,
     isPremium: false,

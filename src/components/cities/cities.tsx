@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Offer, Offers } from '../../types/offer';
+import { City, Offer, Offers } from '../../types/offer';
 import PlaceCard from '../place-card';
 import { Nullable } from 'vitest';
+import Map from '../map';
 
 type CitiesProps = {
+  city: City;
   offers: Offers;
 };
 
-function Cities({ offers }: CitiesProps): JSX.Element {
+function Cities({ city, offers }: CitiesProps): JSX.Element {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeOffer, setActiveOffer] = useState<Nullable<Offer>>(null);
 
@@ -58,7 +60,10 @@ function Cities({ offers }: CitiesProps): JSX.Element {
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <Map
+            city={city}
+            offers={offers}
+          />
         </div>
       </div>
     </div>
