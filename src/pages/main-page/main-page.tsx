@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Cities from '../../components/cities';
 import Tabs from '../../components/tabs';
-import { City, Offers } from '../../types/offer';
-import { useState } from 'react';
+import { City, Offer } from '../../types/offer';
+
 
 type MainPageProps = {
   cities: City[];
-  offers: Offers;
+  offers: Offer[];
 };
 
 function MainPage({ cities, offers }: MainPageProps): JSX.Element {

@@ -47,4 +47,3 @@ export type Offer = {
   maxAdults: number;
 };
 
-export type Offers = Offer[];

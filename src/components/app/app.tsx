@@ -9,12 +9,12 @@ import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import { getAuthorizationStatus } from '../../authorization-status';
-import { City, Offers } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 
 type AppProps = {
   cities: City[];
-  offers: Offers;
+  offers: Offer[];
   reviews: Reviews;
 };
 

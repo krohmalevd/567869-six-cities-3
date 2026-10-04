@@ -1,12 +1,12 @@
-import { Offers } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import FavoritesItem from '../favorites-item/favorites-item';
 
 type FavoritesListProps = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 function FavoritesList({ offers }: FavoritesListProps): JSX.Element {
-  const offersByCity: Record<string, Offers> = {};
+  const offersByCity: Record<string, Offer[]> = {};
 
   offers.forEach((offer) => {
     const cityName = offer.city.name;

@@ -1,27 +1,16 @@
 import { useEffect, useRef } from 'react';
-import { Icon, Marker, layerGroup } from 'leaflet';
+import { Marker, layerGroup } from 'leaflet';
+import { defaultCustomIcon, currentCustomIcon } from './map-icon';
 import useMap from '../../hooks/use-map';
-import { City, Offer, Offers } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   city: City;
-  offers: Offers;
+  offers: Offer[];
   className?: string;
-  selectedOffer: Offer | null;
+  selectedOffer?: Offer;
 }
-
-const defaultCustomIcon = new Icon({
-  iconUrl: '/img/pin.svg',
-  iconSize: [27, 39],
-  iconAnchor: [13.5, 39]
-});
-
-const currentCustomIcon = new Icon({
-  iconUrl: '/img/pin-active.svg',
-  iconSize: [27, 39],
-  iconAnchor: [13.5, 39],
-});
 
 function Map({ city, offers, className = 'cities__map map', selectedOffer }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
@@ -38,16 +27,17 @@ function Map({ city, offers, className = 'cities__map map', selectedOffer }: Map
 
         offerMarker
           .setIcon(
-            selectedOffer !== null && offer.id === selectedOffer.id
+            selectedOffer?.id === offer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
           .addTo(markerLayer);
-
-        return () => {
-          map.removeLayer(markerLayer);
-        };
       });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
+
     }
   }, [map, offers, selectedOffer]);
 

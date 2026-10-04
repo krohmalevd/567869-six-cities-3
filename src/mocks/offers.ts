@@ -1,4 +1,4 @@
-import { Offers } from '../types/offer';
+import { Offer } from '../types/offer';
 import {
   amsterdam,
   paris,
@@ -8,7 +8,7 @@ import {
   dusseldorf,
 } from './cities';
 
-const mockOffers: Offers = [
+const mockOffers: Offer[] = [
   // =========================
   // AMSTERDAM
   // =========================

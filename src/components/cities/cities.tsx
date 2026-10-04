@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { City, Offer, Offers } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
 import PlaceCard from '../place-card';
 import Map from '../map';
 
 type CitiesProps = {
   city: City;
-  offers: Offers;
+  offers: Offer[];
 };
 
 function Cities({ city, offers }: CitiesProps): JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
+  const [activeOffer, setActiveOffer] = useState<Offer>();
 
   const handleHover = (offer?: Offer) => {
-    setActiveOffer(offer || null);
+    setActiveOffer(offer);
   };
 
   return (
