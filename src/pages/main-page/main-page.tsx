@@ -1,13 +1,24 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Cities from '../../components/cities';
 import Tabs from '../../components/tabs';
-import { Offers } from '../../types/offer';
+import { City, Offer } from '../../types/offer';
+
 
 type MainPageProps = {
-  offers: Offers;
+  cities: City[];
+  offers: Offer[];
 };
 
-function MainPage({ offers }: MainPageProps): JSX.Element {
+function MainPage({ cities, offers }: MainPageProps): JSX.Element {
+  const [activeCity, setActiveCity] = useState<City>(
+    cities.find((city) => city.name === 'Amsterdam') ?? cities[0]
+  );
+
+  const filteredOffers = offers.filter(
+    (offer) => offer.city.name === activeCity.name
+  );
+
   return (
     <>
       <Helmet>
@@ -15,8 +26,8 @@ function MainPage({ offers }: MainPageProps): JSX.Element {
       </Helmet>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
-        <Cities offers={offers} />
+        <Tabs cities={cities} activeCity={activeCity} onCityChange={setActiveCity} />
+        <Cities city={activeCity} offers={filteredOffers} />
       </main>
     </>
   );

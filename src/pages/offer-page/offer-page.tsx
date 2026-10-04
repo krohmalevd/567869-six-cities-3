@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { Offer, Offers } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
 import Map from '../../components/map';
@@ -8,7 +8,7 @@ import Review from '../../components/review';
 import { Reviews } from '../../types/review';
 
 type OfferPageProps = {
-  offers: Offers;
+  offers: Offer[];
   reviews: Reviews;
 };
 
@@ -155,7 +155,7 @@ function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
             </div>
           </div>
 
-          <Map />
+          <Map city={currentOffer.city} offers={[currentOffer]} className={'offer__map map'} selectedOffer={currentOffer}/>
         </section>
         <div className="container">
           <section className="near-places places">
