@@ -1,12 +1,12 @@
 import { Review } from '../../types/review';
-import { ratingWidthStyle } from '../../utils/tools';
+import { formatDate, ratingWidthStyle } from '../../utils/tools';
 
 type ReviewsListProps = {
   review: Review;
 };
 
 function ReviewItem({ review }: ReviewsListProps): JSX.Element {
-  const { user, rating, comment } = review;
+  const { user, rating, comment, date } = review;
 
   return (
     <li className="reviews__item">
@@ -30,8 +30,8 @@ function ReviewItem({ review }: ReviewsListProps): JSX.Element {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">
-          April 2019
+        <time className="reviews__time" dateTime={date}>
+          {formatDate(date)}
         </time>
       </div>
     </li>

@@ -22,7 +22,7 @@ function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
     return <NotFoundPage />;
   }
 
-  const currentReviews = reviews.filter((review) => review.id === currentOffer.id);
+  const currentReviews = reviews.filter((review) => review.offerId === currentOffer.id);
 
   const {
     title,

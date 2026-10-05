@@ -3,6 +3,7 @@ import { Reviews } from '../types/review';
 const mockReviews: Reviews = [
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    offerId: 'amsterdam-1',
     date: '2019-05-08T14:13:56.569Z',
     user: {
       name: 'Oliver',
@@ -15,6 +16,7 @@ const mockReviews: Reviews = [
   },
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    offerId: 'amsterdam-1',
     date: '2023-01-15T09:30:00.000Z',
     user: {
       name: 'Sophie',
@@ -26,6 +28,7 @@ const mockReviews: Reviews = [
   },
   {
     id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    offerId: 'amsterdam-2',
     date: '2022-11-22T18:45:12.345Z',
     user: {
       name: 'Hans',
@@ -37,6 +40,7 @@ const mockReviews: Reviews = [
   },
   {
     id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+    offerId: 'amsterdam-1',
     date: '2023-03-05T12:15:30.678Z',
     user: {
       name: 'Maria',

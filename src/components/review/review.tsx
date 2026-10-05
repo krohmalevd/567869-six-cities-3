@@ -10,10 +10,16 @@ type ReviewProps = {
 
 function Review({ reviews }: ReviewProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
+  const sortedReviews = [...reviews]
+    .sort(
+      (reviewA, reviewB) =>
+        new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime()
+    )
+    .slice(0, 10);
 
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => (
+      {sortedReviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
 
