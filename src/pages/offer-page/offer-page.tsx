@@ -11,13 +11,15 @@ import { getAuthorizationStatus } from '../../authorization-status';
 import { AuthorizationStatus } from '../../const';
 import ReviewForm from '../../components/review-form';
 import clsx from 'clsx';
+import { useAppSelector } from '../../hooks';
 
 type OfferPageProps = {
-  offers: Offer[];
   reviews: Reviews;
 };
 
-function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
+function OfferPage({ reviews }: OfferPageProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+
   const { id } = useParams();
   const currentOffer: Offer | undefined = offers.find(
     (offer: Offer) => offer.id === id
