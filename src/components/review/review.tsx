@@ -1,7 +1,4 @@
-import { getAuthorizationStatus } from '../../authorization-status';
-import { AuthorizationStatus } from '../../const';
 import { Reviews } from '../../types/review';
-import ReviewForm from '../review-form';
 import ReviewItem from '../review-item/review-item';
 
 type ReviewProps = {
@@ -9,15 +6,18 @@ type ReviewProps = {
 };
 
 function Review({ reviews }: ReviewProps): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const sortedReviews = [...reviews]
+    .sort(
+      (reviewA, reviewB) =>
+        new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime()
+    )
+    .slice(0, 10);
 
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => (
+      {sortedReviews.map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
-
-      {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm />}
     </ul>
   );
 }
