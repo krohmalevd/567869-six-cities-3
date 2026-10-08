@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import { AppRoute } from '../../const';
+import clsx from 'clsx';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -20,19 +21,32 @@ function PlaceCard({ offer, handleHover, className = 'cities' }: PlaceCardProps)
 
   const { id, isPremium, isFavorite, images, title, price, rating, type } =
     offer;
-  const isFavoriteClassName = isFavorite
-    ? 'place-card__bookmark-button place-card__bookmark-button--active button'
-    : 'place-card__bookmark-button button';
 
-  const cardClassName =
-    className === 'near-places'
-      ? 'near-places__card place-card'
-      : 'cities__card place-card';
+  const isFavoriteClassName = clsx(
+    'place-card__bookmark-button',
+    'button',
+    {
+      'place-card__bookmark-button--active': isFavorite,
+    }
+  );
 
-  const imageWrapperClassName =
-    className === 'near-places'
-      ? 'near-places__image-wrapper place-card__image-wrapper'
-      : 'cities__image-wrapper place-card__image-wrapper';
+  const isNearPlaces = className === 'near-places';
+
+  const cardClassName = clsx(
+    'place-card',
+    {
+      'near-places__card place-card': isNearPlaces,
+      'cities__card place-card': !isNearPlaces,
+    }
+  );
+
+  const imageWrapperClassName = clsx(
+    'place-card__image-wrapper',
+    {
+      'near-places__image-wrapper': isNearPlaces,
+      'cities__image-wrapper': !isNearPlaces,
+    }
+  );
 
   return (
     <Link to={`${AppRoute.Offer}/${id}`}>

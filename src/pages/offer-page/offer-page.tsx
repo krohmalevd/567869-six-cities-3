@@ -10,13 +10,16 @@ import PlaceCard from '../../components/place-card';
 import { getAuthorizationStatus } from '../../authorization-status';
 import { AuthorizationStatus } from '../../const';
 import ReviewForm from '../../components/review-form';
+import clsx from 'clsx';
+import { useAppSelector } from '../../hooks';
 
 type OfferPageProps = {
-  offers: Offer[];
   reviews: Reviews;
 };
 
-function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
+function OfferPage({ reviews }: OfferPageProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+
   const { id } = useParams();
   const currentOffer: Offer | undefined = offers.find(
     (offer: Offer) => offer.id === id
@@ -52,9 +55,15 @@ function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
 
   const mapOffers = [currentOffer, ...nearbyOffers];
 
-  const isFavoriteClassName = isFavorite
-    ? 'offer__bookmark-button offer__bookmark-button--active button'
-    : 'offer__bookmark-button button';
+  const isFavoriteClassName = clsx(
+    'offer__bookmark-button',
+    'button',
+    {
+      'offer__bookmark-button--active': isFavorite,
+    }
+  );
+
+  const isAuthorized = getAuthorizationStatus() === AuthorizationStatus.Auth;
 
   return (
     <>
@@ -164,7 +173,7 @@ function OfferPage({ offers, reviews }: OfferPageProps): JSX.Element {
                   <span className="reviews__amount">{currentReviews.length}</span>
                 </h2>
                 <Review reviews={currentReviews} />
-                {getAuthorizationStatus() === AuthorizationStatus.Auth && <ReviewForm />}
+                {isAuthorized && <ReviewForm />}
               </section>
             </div>
           </div>
