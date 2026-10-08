@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { SortType } from '../../const';
 import clsx from 'clsx';
+import { SortType } from '../../const';
 
 type SortingProps = {
   currentSort: SortType;
   onSortTypeChange: (sortType: SortType) => void;
 };
+
+const sortTypes = Object.values(SortType);
 
 function Sorting({ currentSort, onSortTypeChange }: SortingProps): JSX.Element {
   const [isOpened, setIsOpened] = useState(false);
@@ -44,34 +46,16 @@ function Sorting({ currentSort, onSortTypeChange }: SortingProps): JSX.Element {
         </svg>
       </span>
       <ul className={optionsClassName}>
-        <li
-          className={getOptionClassName(SortType.Popular)}
-          tabIndex={0}
-          onClick={() => handleOptionClick(SortType.Popular)}
-        >
-          Popular
-        </li>
-        <li
-          className={getOptionClassName(SortType.PriceLowToHigh)}
-          tabIndex={0}
-          onClick={() => handleOptionClick(SortType.PriceLowToHigh)}
-        >
-          Price: low to high
-        </li>
-        <li
-          className={getOptionClassName(SortType.PriceHighToLow)}
-          tabIndex={0}
-          onClick={() => handleOptionClick(SortType.PriceHighToLow)}
-        >
-          Price: high to low
-        </li>
-        <li
-          className={getOptionClassName(SortType.TopRatedFirst)}
-          tabIndex={0}
-          onClick={() => handleOptionClick(SortType.TopRatedFirst)}
-        >
-          Top rated first
-        </li>
+        {sortTypes.map((sortType) => (
+          <li
+            key={sortType}
+            className={getOptionClassName(sortType)}
+            tabIndex={0}
+            onClick={() => handleOptionClick(sortType)}
+          >
+            {sortType}
+          </li>
+        ))}
       </ul>
     </form>
   );
