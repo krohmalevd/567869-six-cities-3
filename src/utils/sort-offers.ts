@@ -1,5 +1,5 @@
 import { SortType } from '../const';
-import { Offer } from '../types/offer';
+import type { Offer } from '../types/offer';
 
 export const getSortedOffers = (offers: Offer[], sortType: SortType) => {
   const sortedOffers = [...offers];
