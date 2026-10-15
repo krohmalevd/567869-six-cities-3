@@ -5,6 +5,8 @@ import Map from '../map';
 import { SortType } from '../../const';
 import Sorting from '../sorting';
 import { getSortedOffers } from '../../utils/sort-offers';
+import Spinner from '../spinner';
+import { useAppSelector } from '../../hooks/use-redux';
 
 type CitiesProps = {
   city: City;
@@ -24,6 +26,12 @@ function Cities({ city, offers }: CitiesProps): JSX.Element {
     setActiveSort(sortType);
   };
 
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  if (isOffersDataLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -32,13 +40,17 @@ function Cities({ city, offers }: CitiesProps): JSX.Element {
           <b className="places__found">{offers.length} places to stay in {city.name}</b>
           <Sorting currentSort={activeSort} onSortTypeChange={handleSortChange} />
           <div className="cities__places-list places__list tabs__content">
-            {sortedOffers.map((offer) => (
-              <PlaceCard
-                key={offer.id}
-                offer={offer}
-                handleHover={handleHover}
-              />
-            ))}
+            {isOffersDataLoading ? (
+              <Spinner />
+            ) : (
+              sortedOffers.map((offer) => (
+                <PlaceCard
+                  key={offer.id}
+                  offer={offer}
+                  handleHover={handleHover}
+                />
+              ))
+            )}
           </div>
         </section>
         <div className="cities__right-section">

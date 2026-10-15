@@ -5,6 +5,7 @@ import { AppDispatch, State } from '../types/store';
 
 export const changeCity = createAction<string>('city/changeCity');
 export const fillOffers = createAction<Offer[]>('offers/fillOffers');
+export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');
 export const fetchOffersAction = createAsyncThunk<
   void,
   undefined,
@@ -17,5 +18,6 @@ export const fetchOffersAction = createAsyncThunk<
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<Offer[]>('/offers');
     dispatch(fillOffers(data));
+    dispatch(setOffersDataLoadingStatus(false));
   }
 );
