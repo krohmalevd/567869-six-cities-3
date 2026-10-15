@@ -1,6 +1,7 @@
-import { AppRoute } from '../../const';
 import { HelmetProvider } from 'react-helmet-async';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { AppRoute } from '../../const';
 import MainPage from '../../pages/main-page';
 import LoginPage from '../../pages/login-page';
 import FavoritesPage from '../../pages/favorites-page';
@@ -11,6 +12,8 @@ import Layout from '../layout';
 import { getAuthorizationStatus } from '../../authorization-status';
 import { City } from '../../types/offer';
 import { Reviews } from '../../types/review';
+import { useAppDispatch } from '../../hooks/use-redux';
+import { fetchOffersAction } from '../../store/action';
 
 type AppProps = {
   cities: City[];
@@ -18,6 +21,11 @@ type AppProps = {
 };
 
 function App({ cities, reviews }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffersAction());
+  }, [dispatch]);
+
   return (
     <HelmetProvider>
       <BrowserRouter>

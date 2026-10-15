@@ -34,6 +34,7 @@ export type Offer = {
   title: string;
   type: OfferType;
   price: number;
+  previewImage: string;
   city: City;
   location: Location;
   isFavorite: boolean;
