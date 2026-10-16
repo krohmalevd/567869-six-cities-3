@@ -20,7 +20,7 @@ function PlaceCard({ offer, handleHover, className = 'cities' }: PlaceCardProps)
     handleHover?.();
   };
 
-  const { id, isPremium, isFavorite, images, title, price, rating, type } =
+  const { id, isPremium, isFavorite, previewImage, title, price, rating, type } =
     offer;
 
   const isFavoriteClassName = clsx(
@@ -65,7 +65,7 @@ function PlaceCard({ offer, handleHover, className = 'cities' }: PlaceCardProps)
         <div className={imageWrapperClassName}>
           <img
             className="place-card__image"
-            src={images[0]}
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"

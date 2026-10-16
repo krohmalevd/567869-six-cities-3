@@ -18,7 +18,7 @@ function Sorting({ currentSort, onSortTypeChange }: SortingProps): JSX.Element {
 
   const handleOptionClick = (sortType: SortType) => {
     onSortTypeChange(sortType);
-    setIsOpened((false));
+    setIsOpened(false);
   };
 
   const optionsClassName = clsx(
@@ -46,16 +46,23 @@ function Sorting({ currentSort, onSortTypeChange }: SortingProps): JSX.Element {
         </svg>
       </span>
       <ul className={optionsClassName}>
-        {sortTypes.map((sortType) => (
-          <li
-            key={sortType}
-            className={getOptionClassName(sortType)}
-            tabIndex={0}
-            onClick={() => handleOptionClick(sortType)}
-          >
-            {sortType}
-          </li>
-        ))}
+        {sortTypes.map((sortType) => {
+          const optionClassName = getOptionClassName(sortType);
+          const handleSortTypeClick = () => {
+            handleOptionClick(sortType);
+          };
+
+          return (
+            <li
+              key={sortType}
+              className={optionClassName}
+              tabIndex={0}
+              onClick={handleSortTypeClick}
+            >
+              {sortType}
+            </li>
+          );
+        })}
       </ul>
     </form>
   );
