@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { FullOffer } from '../../types/offer';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import { AppRoute } from '../../const';
 
 type FavoritesCardProps = {
-  offer: Offer;
+  offer: FullOffer;
 };
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {

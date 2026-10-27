@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import clsx from 'clsx';
-import { Offer } from '../../types/offer';
+import { fetchOfferAction } from '../../store/action';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
 import Map from '../../components/map';
@@ -11,22 +12,47 @@ import PlaceCard from '../../components/place-card';
 import { getAuthorizationStatus } from '../../authorization-status';
 import { AuthorizationStatus } from '../../const';
 import ReviewForm from '../../components/review-form';
-import { useAppSelector } from '../../hooks/use-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-redux';
+import Spinner from '../../components/spinner';
 
 type OfferPageProps = {
   reviews: Reviews;
 };
 
 function OfferPage({ reviews }: OfferPageProps): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
 
+  const dispatch = useAppDispatch();
   const { id } = useParams();
-  const currentOffer: Offer | undefined = offers.find(
-    (offer: Offer) => offer.id === id
-  );
 
-  if (!currentOffer) {
+  const offers = useAppSelector((state) => state.offers);
+  const currentOffer = useAppSelector((state) => state.offer);
+  const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
+  const offerError = useAppSelector((state) => state.offerError);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+    }
+  }, [dispatch, id]);
+
+  if (isOfferDataLoading) {
+    return <Spinner />;
+  }
+
+  if (offerError === 'not-found') {
     return <NotFoundPage />;
+  }
+
+  if (offerError === 'network') {
+    return (
+      <main className="page__main page__main--offer">
+        <p>Не удалось загрузить предложение. Попробуйте обновить страницу.</p>
+      </main>
+    );
+  }
+
+  if (!currentOffer || currentOffer.id !== id) {
+    return <Spinner />;
   }
 
   const currentReviews = reviews.filter((review) => review.offerId === currentOffer.id);

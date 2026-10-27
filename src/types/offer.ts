@@ -11,40 +11,33 @@ export type City = {
 
 type OfferType = 'apartment' | 'house' | 'room' | 'hotel' | 'cabin' | 'studio';
 
-type Goods =
-  | 'Heating'
-  | 'Wi-Fi'
-  | 'Kitchen'
-  | 'Fridge'
-  | 'Washing Machine'
-  | 'Coffee Machine'
-  | 'Dishwasher'
-  | 'Towels'
-  | 'Baby seat'
-  | 'Cabel TV';
-
 export type Host = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-export type Offer = {
+export type BaseOffer = {
   id: string;
   title: string;
   type: OfferType;
   price: number;
-  previewImage: string;
   city: City;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+};
+
+export type Offer = BaseOffer & {
+  previewImage: string;
+}
+
+export type FullOffer = BaseOffer & {
   description: string;
   bedrooms: number;
-  goods: Goods[];
+  goods: string[];
   host: Host;
   images: string[];
   maxAdults: number;
 };
-

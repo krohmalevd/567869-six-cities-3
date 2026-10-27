@@ -1,11 +1,23 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import type { Offer } from '../types/offer';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, isAxiosError } from 'axios';
+import type { Offer, FullOffer } from '../types/offer';
 import { AppDispatch, State } from '../types/store';
 
 export const changeCity = createAction<string>('city/changeCity');
 export const fillOffers = createAction<Offer[]>('offers/fillOffers');
-export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');
+export const fillOffer = createAction<FullOffer | null>('offer/fillOffer');
+export const setOffersDataLoadingStatus = createAction<boolean>(
+  'offers/setOffersDataLoadingStatus'
+);
+
+export const setOfferDataLoadingStatus = createAction<boolean>(
+  'offer/setOfferDataLoadingStatus'
+);
+
+export const setOfferError = createAction<'not-found' | 'network' | null>(
+  'offer/setOfferError'
+);
+
 export const fetchOffersAction = createAsyncThunk<
   void,
   undefined,
@@ -21,3 +33,34 @@ export const fetchOffersAction = createAsyncThunk<
     dispatch(setOffersDataLoadingStatus(false));
   }
 );
+
+export const fetchOfferAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchOffer',
+  async (offerId, { dispatch, extra: api }) => {
+    dispatch(setOfferDataLoadingStatus(true));
+    dispatch(setOfferError(null));
+    dispatch(fillOffer(null));
+
+    try {
+      const { data } = await api.get<FullOffer>(`/offers/${offerId}`);
+      dispatch(fillOffer(data));
+    } catch (error) {
+      const isNotFound =
+        isAxiosError(error) && error.response?.status === 404;
+
+      dispatch(setOfferError(isNotFound ? 'not-found' : 'network'));
+
+      throw error;
+    } finally {
+      dispatch(setOfferDataLoadingStatus(false));
+    }
+  }
+);
+
