@@ -5,7 +5,7 @@ import { AppDispatch, State } from '../types/store';
 import { AuthorizationStatus } from '../const';
 import type { AuthData } from '../types/auth-data';
 import type { UserData } from '../types/user-data';
-import { saveToken } from '../services/token';
+import { saveToken, dropToken } from '../services/token';
 
 export const changeCity = createAction<string>('city/changeCity');
 export const fillOffers = createAction<Offer[]>('offers/fillOffers');
@@ -112,5 +112,23 @@ export const loginAction = createAsyncThunk<
     saveToken(data.token);
     dispatch(setUser(data));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  }
+);
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/logout',
+  async (_arg, { dispatch, extra: api }) => {
+    await api.delete('/logout');
+
+    dropToken();
+    dispatch(setUser(null));
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
