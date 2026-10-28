@@ -9,6 +9,7 @@ function Layout() {
   const { rootClassName, shouldRenderUser, shouldRenderFooter } =
     getLayoutState(pathname as AppRoute);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <div className={`page${rootClassName}`}>
@@ -34,7 +35,7 @@ function Layout() {
                       {authorizationStatus === AuthorizationStatus.Auth ? (
                         <>
                           <span className="header__user-name user__name">
-                            Oliver.conner@gmail.com
+                            {user?.email}
                           </span>
                           <span className="header__favorite-count">3</span>
                         </>

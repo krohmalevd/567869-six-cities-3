@@ -22,6 +22,9 @@ export const setOfferError = createAction<'not-found' | 'network' | null>(
   'offer/setOfferError'
 );
 
+export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+export const setUser = createAction<UserData | null>('user/setUser');
+
 export const fetchOffersAction = createAsyncThunk<
   void,
   undefined,
@@ -68,8 +71,6 @@ export const fetchOfferAction = createAsyncThunk<
   }
 );
 
-export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
-
 export const checkAuthAction = createAsyncThunk<
   void,
   undefined,
@@ -81,10 +82,12 @@ export const checkAuthAction = createAsyncThunk<
 >('user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get('/login');
+      const { data } = await api.get<UserData>('/login');
+      dispatch(setUser(data));
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
+        dispatch(setUser(null));
         dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
         return;
       }
@@ -107,6 +110,7 @@ export const loginAction = createAsyncThunk<
     const { data } = await api.post<UserData>('/login', authData);
 
     saveToken(data.token);
+    dispatch(setUser(data));
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
   }
 );
