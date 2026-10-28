@@ -1,9 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, fillOffer, fillOffers, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus } from './action';
+import { changeCity, fillOffer, fillOffers, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, requireAuthorization } from './action';
 import type { Offer, FullOffer } from '../types/offer';
+import { AuthorizationStatus } from '../const';
 
 const initialState: {
   city: string;
+  authorizationStatus: AuthorizationStatus;
   offers: Offer[];
   offer: FullOffer | null;
   isOffersDataLoading: boolean;
@@ -11,6 +13,7 @@ const initialState: {
   offerError: 'not-found' | 'network' | null;
 } = {
   city: 'Paris',
+  authorizationStatus: AuthorizationStatus.Unknown,
   offers: [],
   offer: null,
   isOffersDataLoading: true,
@@ -37,6 +40,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOfferError, (state, action) => {
       state.offerError = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 

@@ -2,6 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, isAxiosError } from 'axios';
 import type { Offer, FullOffer } from '../types/offer';
 import { AppDispatch, State } from '../types/store';
+import { AuthorizationStatus } from '../const';
 
 export const changeCity = createAction<string>('city/changeCity');
 export const fillOffers = createAction<Offer[]>('offers/fillOffers');
@@ -63,4 +64,6 @@ export const fetchOfferAction = createAsyncThunk<
     }
   }
 );
+
+export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
