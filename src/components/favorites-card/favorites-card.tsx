@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { FullOffer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import { AppRoute } from '../../const';
 
 type FavoritesCardProps = {
-  offer: FullOffer;
+  offer: Offer;
 };
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-  const { id, isPremium, images, price, rating, title, type } = offer;
+  const { id, isPremium, previewImage, price, rating, title, type } = offer;
   return (
     <article className="favorites__card place-card">
       {isPremium && (
@@ -21,7 +21,7 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src={images[0]}
+            src={previewImage}
             width="150"
             height="110"
             alt="Place image"
