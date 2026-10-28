@@ -3,6 +3,9 @@ import { AxiosInstance, isAxiosError } from 'axios';
 import type { Offer, FullOffer } from '../types/offer';
 import { AppDispatch, State } from '../types/store';
 import { AuthorizationStatus } from '../const';
+import type { AuthData } from '../types/auth-data';
+import type { UserData } from '../types/user-data';
+import { saveToken } from '../services/token';
 
 export const changeCity = createAction<string>('city/changeCity');
 export const fillOffers = createAction<Offer[]>('offers/fillOffers');
@@ -88,5 +91,22 @@ export const checkAuthAction = createAsyncThunk<
 
       throw error;
     }
+  }
+);
+
+export const loginAction = createAsyncThunk<
+  void,
+  AuthData,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/login',
+  async (authData, { dispatch, extra: api }) => {
+    const { data } = await api.post<UserData>('/login', authData);
+
+    saveToken(data.token);
+    dispatch(requireAuthorization(AuthorizationStatus.Auth));
   }
 );
