@@ -67,3 +67,26 @@ export const fetchOfferAction = createAsyncThunk<
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 
+export const checkAuthAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/checkAuth',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      await api.get('/login');
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status === 401) {
+        dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+        return;
+      }
+
+      throw error;
+    }
+  }
+);
