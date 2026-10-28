@@ -2,13 +2,13 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import Logo from '../logo';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getLayoutState } from './utils';
-import { getAuthorizationStatus } from '../../authorization-status';
+import { useAppSelector } from '../../hooks/use-redux';
 
 function Layout() {
   const { pathname } = useLocation();
   const { rootClassName, shouldRenderUser, shouldRenderFooter } =
     getLayoutState(pathname as AppRoute);
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <div className={`page${rootClassName}`}>
@@ -24,7 +24,11 @@ function Layout() {
                   <li className="header__nav-item user">
                     <Link
                       className="header__nav-link header__nav-link--profile"
-                      to={AppRoute.Favorites}
+                      to={
+                        authorizationStatus === AuthorizationStatus.Auth
+                          ? AppRoute.Favorites
+                          : AppRoute.Login
+                      }
                     >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {authorizationStatus === AuthorizationStatus.Auth ? (
