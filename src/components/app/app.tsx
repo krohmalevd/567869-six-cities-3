@@ -13,7 +13,8 @@ import { getAuthorizationStatus } from '../../authorization-status';
 import { City } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { useAppDispatch } from '../../hooks/use-redux';
-import { fetchOffersAction } from '../../store/action';
+import { checkAuthAction, fetchOffersAction } from '../../store/action';
+
 
 type AppProps = {
   cities: City[];
@@ -23,6 +24,7 @@ type AppProps = {
 function App({ cities, reviews }: AppProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
   }, [dispatch]);
 
