@@ -13,6 +13,7 @@ type MainPageProps = {
 function MainPage({ cities }: MainPageProps): JSX.Element {
   const activeCityName = useAppSelector((state) => state.city);
   const offers = useAppSelector((state) => state.offers);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
   const dispatch = useAppDispatch();
 
@@ -34,7 +35,7 @@ function MainPage({ cities }: MainPageProps): JSX.Element {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Tabs cities={cities} activeCity={activeCity} onCityChange={handleCityChange} />
-        <Cities city={activeCity} offers={filteredOffers} />
+        <Cities city={activeCity} offers={filteredOffers} isOffersDataLoading={isOffersDataLoading} />
       </main>
     </>
   );

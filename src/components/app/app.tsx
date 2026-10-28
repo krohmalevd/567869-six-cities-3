@@ -9,11 +9,11 @@ import OfferPage from '../../pages/offer-page';
 import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
-import { getAuthorizationStatus } from '../../authorization-status';
 import { City } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { useAppDispatch } from '../../hooks/use-redux';
-import { fetchOffersAction } from '../../store/action';
+import { checkAuthAction, fetchOffersAction } from '../../store/action';
+
 
 type AppProps = {
   cities: City[];
@@ -23,6 +23,7 @@ type AppProps = {
 function App({ cities, reviews }: AppProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    dispatch(checkAuthAction());
     dispatch(fetchOffersAction());
   }, [dispatch]);
 
@@ -35,10 +36,7 @@ function App({ cities, reviews }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute
-                  authorizationStatus={getAuthorizationStatus()}
-                  isReverse
-                >
+                <PrivateRoute isReverse>
                   <LoginPage />
                 </PrivateRoute>
               }
@@ -46,7 +44,7 @@ function App({ cities, reviews }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={getAuthorizationStatus()}>
+                <PrivateRoute>
                   <FavoritesPage />
                 </PrivateRoute>
               }
