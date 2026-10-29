@@ -52,7 +52,13 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
   }
 
   if (!currentOffer || currentOffer.id !== id) {
-    return <Spinner />;
+    return (
+      <main className="page__main page__main--offer">
+        <p role="alert">
+          Не удалось загрузить предложение. Попробуйте обновить страницу.
+        </p>
+      </main>
+    );
   }
 
   const currentReviews = reviews.filter((review) => review.offerId === currentOffer.id);

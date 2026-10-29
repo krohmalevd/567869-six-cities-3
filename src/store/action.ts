@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, isAxiosError } from 'axios';
 import type { Offer, FullOffer } from '../types/offer';
 import { AppDispatch, State } from '../types/store';
-import { AuthorizationStatus } from '../const';
+import { APIRoute, AuthorizationStatus } from '../const';
 import type { AuthData } from '../types/auth-data';
 import type { UserData } from '../types/user-data';
 import { saveToken, dropToken } from '../services/token';
@@ -35,7 +35,7 @@ export const fetchOffersAction = createAsyncThunk<
   }
 >('data/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<Offer[]>('/offers');
+    const { data } = await api.get<Offer[]>(APIRoute.Offers);
     dispatch(fillOffers(data));
     dispatch(setOffersDataLoadingStatus(false));
   }
@@ -56,7 +56,7 @@ export const fetchOfferAction = createAsyncThunk<
     dispatch(fillOffer(null));
 
     try {
-      const { data } = await api.get<FullOffer>(`/offers/${offerId}`);
+      const { data } = await api.get<FullOffer>(`${APIRoute.Offers}/${offerId}`);
       dispatch(fillOffer(data));
     } catch (error) {
       const isNotFound =
@@ -82,7 +82,7 @@ export const checkAuthAction = createAsyncThunk<
 >('user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<UserData>('/login');
+      const { data } = await api.get<UserData>(APIRoute.Login);
       dispatch(setUser(data));
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
@@ -107,7 +107,7 @@ export const loginAction = createAsyncThunk<
   }
 >('user/login',
   async (authData, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserData>('/login', authData);
+    const { data } = await api.post<UserData>(APIRoute.Login, authData);
 
     saveToken(data.token);
     dispatch(setUser(data));
@@ -125,7 +125,7 @@ export const logoutAction = createAsyncThunk<
   }
 >('user/logout',
   async (_arg, { dispatch, extra: api }) => {
-    await api.delete('/logout');
+    await api.delete(APIRoute.Logout);
 
     dropToken();
     dispatch(setUser(null));
