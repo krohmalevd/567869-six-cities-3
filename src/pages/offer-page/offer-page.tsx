@@ -1,37 +1,36 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import clsx from 'clsx';
-import { fetchOfferAction } from '../../store/action';
+import { fetchOfferAction, fetchReviewsAction } from '../../store/action';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from '../not-found-page';
 import Map from '../../components/map';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import Review from '../../components/review';
-import { Reviews } from '../../types/review';
 import PlaceCard from '../../components/place-card';
-import { getAuthorizationStatus } from '../../authorization-status';
 import { AuthorizationStatus } from '../../const';
 import ReviewForm from '../../components/review-form';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-redux';
 import Spinner from '../../components/spinner';
 
-type OfferPageProps = {
-  reviews: Reviews;
-};
-
-function OfferPage({ reviews }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
   const offers = useAppSelector((state) => state.offers);
   const currentOffer = useAppSelector((state) => state.offer);
+  const currentReviews = useAppSelector((state) => state.reviews);
+  const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
   const isOfferDataLoading = useAppSelector((state) => state.isOfferDataLoading);
   const offerError = useAppSelector((state) => state.offerError);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
+      const reviewsRequest = dispatch(fetchReviewsAction(id));
+
+      return () => reviewsRequest.abort();
     }
   }, [dispatch, id]);
 
@@ -60,8 +59,6 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
       </main>
     );
   }
-
-  const currentReviews = reviews.filter((review) => review.offerId === currentOffer.id);
 
   const {
     title,
@@ -94,8 +91,6 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
       'offer__bookmark-button--active': isFavorite,
     }
   );
-
-  const isAuthorized = getAuthorizationStatus() === AuthorizationStatus.Auth;
 
   return (
     <>
@@ -205,7 +200,7 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
                   <span className="reviews__amount">{currentReviews.length}</span>
                 </h2>
                 <Review reviews={currentReviews} />
-                {isAuthorized && <ReviewForm />}
+                {isAuthorized && <ReviewForm key={currentOffer.id} offerId={currentOffer.id} />}
               </section>
             </div>
           </div>

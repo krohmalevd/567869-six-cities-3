@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, fillOffer, fillOffers, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, requireAuthorization, setUser } from './action';
+import { changeCity, fillOffer, fillOffers, fetchReviewsAction, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, requireAuthorization, setUser, postReviewAction } from './action';
 import type { Offer, FullOffer } from '../types/offer';
+import type { Reviews } from '../types/review';
 import { AuthorizationStatus } from '../const';
 import type { UserData } from '../types/user-data';
 
@@ -13,6 +14,7 @@ const initialState: {
   isOffersDataLoading: boolean;
   isOfferDataLoading: boolean;
   offerError: 'not-found' | 'network' | null;
+  reviews: Reviews;
 } = {
   city: 'Paris',
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -22,6 +24,7 @@ const initialState: {
   isOffersDataLoading: true,
   isOfferDataLoading: false,
   offerError: null,
+  reviews: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,6 +37,17 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fillOffer, (state, action) => {
       state.offer = action.payload;
+    })
+    .addCase(fetchReviewsAction.pending, (state) => {
+      state.reviews = [];
+    })
+    .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(postReviewAction.fulfilled, (state, action) => {
+      if (state.offer?.id === action.meta.arg.offerId) {
+        state.reviews.unshift(action.payload);
+      }
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
