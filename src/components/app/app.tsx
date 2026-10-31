@@ -11,7 +11,7 @@ import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import { City } from '../../types/offer';
 import { useAppDispatch } from '../../hooks/use-redux';
-import { checkAuthAction, fetchOffersAction } from '../../store/action';
+import { checkAuthAction } from '../../store/action';
 
 
 type AppProps = {
@@ -22,7 +22,6 @@ function App({ cities }: AppProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(checkAuthAction());
-    dispatch(fetchOffersAction());
   }, [dispatch]);
 
   return (

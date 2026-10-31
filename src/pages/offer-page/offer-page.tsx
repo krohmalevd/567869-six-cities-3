@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import clsx from 'clsx';
-import { fetchOfferAction, fetchReviewsAction } from '../../store/action';
-import { useParams } from 'react-router-dom';
-import NotFoundPage from '../not-found-page';
+import { fetchOfferAction, fetchReviewsAction, fetchNearbyOffersAction } from '../../store/action';
+import { Navigate, useParams } from 'react-router-dom';
 import Map from '../../components/map';
 import { capitalize, ratingWidthStyle } from '../../utils/tools';
 import Review from '../../components/review';
@@ -18,7 +17,7 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
-  const offers = useAppSelector((state) => state.offers);
+  const nearbyOffers = useAppSelector((state) => state.nearbyOffers);
   const currentOffer = useAppSelector((state) => state.offer);
   const currentReviews = useAppSelector((state) => state.reviews);
   const isAuthorized = useAppSelector((state) => state.authorizationStatus === AuthorizationStatus.Auth);
@@ -29,8 +28,12 @@ function OfferPage(): JSX.Element {
     if (id) {
       dispatch(fetchOfferAction(id));
       const reviewsRequest = dispatch(fetchReviewsAction(id));
+      const nearbyOffersRequest = dispatch(fetchNearbyOffersAction(id));
 
-      return () => reviewsRequest.abort();
+      return () => {
+        reviewsRequest.abort();
+        nearbyOffersRequest.abort();
+      };
     }
   }, [dispatch, id]);
 
@@ -39,7 +42,7 @@ function OfferPage(): JSX.Element {
   }
 
   if (offerError === 'not-found') {
-    return <NotFoundPage />;
+    return <Navigate to="/404" replace />;
   }
 
   if (offerError === 'network') {
@@ -74,13 +77,6 @@ function OfferPage(): JSX.Element {
     host,
     description,
   } = currentOffer;
-
-  const nearbyOffers = offers
-    .filter((offer) =>
-      offer.city.name === currentOffer.city.name &&
-      offer.id !== currentOffer.id
-    )
-    .slice(0, 3);
 
   const mapOffers = [currentOffer, ...nearbyOffers];
 

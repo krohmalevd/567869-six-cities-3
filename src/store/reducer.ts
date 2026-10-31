@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, fillOffer, fillOffers, fetchReviewsAction, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, requireAuthorization, setUser, postReviewAction } from './action';
+import { changeCity, fillOffer, fillOffers, fetchReviewsAction, setOfferError, setOfferDataLoadingStatus, setOffersDataLoadingStatus, requireAuthorization, setUser, postReviewAction, fetchNearbyOffersAction } from './action';
 import type { Offer, FullOffer } from '../types/offer';
 import type { Reviews } from '../types/review';
 import { AuthorizationStatus } from '../const';
@@ -15,6 +15,7 @@ const initialState: {
   isOfferDataLoading: boolean;
   offerError: 'not-found' | 'network' | null;
   reviews: Reviews;
+  nearbyOffers: Offer[];
 } = {
   city: 'Paris',
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -25,6 +26,7 @@ const initialState: {
   isOfferDataLoading: false,
   offerError: null,
   reviews: [],
+  nearbyOffers: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -43,6 +45,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchReviewsAction.fulfilled, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(fetchNearbyOffersAction.pending, (state) => {
+      state.nearbyOffers = [];
+    })
+    .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
+      state.nearbyOffers = action.payload.slice(0, 3);
     })
     .addCase(postReviewAction.fulfilled, (state, action) => {
       if (state.offer?.id === action.meta.arg.offerId) {
